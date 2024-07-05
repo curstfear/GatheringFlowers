@@ -1,22 +1,18 @@
 using Photon.Pun;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviourPunCallbacks
+public class CharacterManager : MonoBehaviourPun
 {
+    private PhotonView _photonView;
+    private CameraFollow _camera;
     void Start()
     {
-        // Применяем PhotonNetwork.DontDestroyOnLoad для объекта игрока
+        _photonView = GetComponent<PhotonView>();
         DontDestroyOnLoad(gameObject);
-
-        if (photonView.IsMine)
+        if (_photonView.IsMine)
         {
-            // Это наш собственный игрок
-            Debug.Log("This is my player instance.");
-        }
-        else
-        {
-            // Это другой игрок
-            Debug.Log("This is another player instance.");
+            _camera = Camera.main.GetComponent<CameraFollow>();
+            _camera.Initialize(gameObject.transform);
         }
     }
 }
