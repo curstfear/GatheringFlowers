@@ -1,71 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class LobbyManager : MonoBehaviourPunCallbacks
+public class SceneChanger : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private int requiredPlayers = 1; // Количество игроков для начала игры
-    public string gameSceneName = "Flowers"; // Имя сцены, которую нужно загрузить
+    private PhotonView photonView;
 
-    private bool isConnecting;
-
-    void Start()
+    private void Start()
     {
-        // Подключение к Photon
-        ConnectToPhoton();
-    }
+        // Получаем компонент PhotonView
+        photonView = GetComponent<PhotonView>();
 
-    void ConnectToPhoton()
-    {
-        isConnecting = true;
-        PhotonNetwork.ConnectUsingSettings();
-        Debug.Log("Connecting to Photon...");
-    }
-
-    public override void OnConnectedToMaster()
-    {
-        Debug.Log("Connected to Photon Master server.");
-        if (isConnecting)
+        // Проверяем, что PhotonView существует
+        if (photonView == null)
         {
-            CreateOrJoinRoom();
+            Debug.LogError("PhotonView is not attached to the object.");
         }
     }
 
-    void CreateOrJoinRoom()
+    private void Update()
     {
-        Debug.Log("Creating or joining room...");
-        PhotonNetwork.JoinOrCreateRoom("TestRoom", new RoomOptions { MaxPlayers = 4 }, TypedLobby.Default);
-    }
-
-    public override void OnJoinedRoom()
-    {
-        Debug.Log("Joined room successfully.");
-        CheckPlayersAndStartGame();
-    }
-
-    public override void OnPlayerEnteredRoom(Player newPlayer)
-    {
-        base.OnPlayerEnteredRoom(newPlayer);
-        Debug.Log("Player entered room. Current player count: " + PhotonNetwork.CurrentRoom.PlayerCount);
-        CheckPlayersAndStartGame();
-    }
-
-    public override void OnPlayerLeftRoom(Player otherPlayer)
-    {
-        base.OnPlayerLeftRoom(otherPlayer);
-        Debug.Log("Player left room. Current player count: " + PhotonNetwork.CurrentRoom.PlayerCount);
-        CheckPlayersAndStartGame();
-    }
-
-    void CheckPlayersAndStartGame()
-    {
-        if (PhotonNetwork.CurrentRoom.PlayerCount == requiredPlayers)
+        // Проверяем подключение к комнате и наличие PhotonView
+        if (PhotonNetwork.CurrentRoom != null && photonView != null)
         {
-            PhotonNetwork.CurrentRoom.IsOpen = false; // Закрыть комнату, чтобы новые игроки не могли присоединиться
-            PhotonNetwork.CurrentRoom.IsVisible = false; // Сделать комнату невидимой
-            PhotonNetwork.LoadLevel(gameSceneName); // Загрузить игровой уровень
+            if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+            {
+                RequestSceneChange("Flowers");
+            }
+        }
+    }
+
+    [PunRPC]
+    public void ChangeScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+
+    public void RequestSceneChange(string sceneName)
+    {
+        if (photonView != null)
+        {
+            photonView.RPC("ChangeScene", RpcTarget.All, sceneName);
+        }
+        else
+        {
+            Debug.LogError("PhotonView is null in RequestSceneChange.");
         }
     }
 }

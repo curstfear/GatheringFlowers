@@ -297,7 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 424711216ed322e4aa040133675547e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredPlayers: 1
+  requiredPlayers: 0
   gameSceneName: Flowers
 --- !u!1 &823583334
 GameObject:
