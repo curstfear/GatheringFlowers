@@ -1,30 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using Photon.Pun;
-using Photon.Realtime;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuManager : MonoBehaviourPunCallbacks
+public class MenuScene : MonoBehaviourPunCallbacks
 {
-    void Start()
+    public void OnJoinRoomButtonClicked()
     {
-        PhotonNetwork.ConnectUsingSettings();
-    }
-
-    public void QuickMatch()
-    {
-        PhotonNetwork.JoinRandomRoom();
-    }
-
-    public override void OnJoinRandomFailed(short returnCode, string message)
-    {
-        RoomOptions roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = 6;
-        PhotonNetwork.CreateRoom(null, roomOptions, null);
+        PhotonNetwork.JoinOrCreateRoom("MatchmakingRoom", new Photon.Realtime.RoomOptions { MaxPlayers = 10 }, null);
     }
 
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.LoadLevel("Lobby");
+        Debug.Log("Joined room successfully.");
+        SceneManager.LoadScene(2);
+    }
+
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        Debug.LogError("Join room failed: " + message);
     }
 }

@@ -1,50 +1,38 @@
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneChanger : MonoBehaviourPunCallbacks
+public class LobbyManager : MonoBehaviourPunCallbacks
 {
-    private PhotonView photonView;
+    [SerializeField] private int requiredPlayers = 2;
 
-    private void Start()
+    void Start()
     {
-        // Получаем компонент PhotonView
-        photonView = GetComponent<PhotonView>();
-
-        // Проверяем, что PhotonView существует
-        if (photonView == null)
-        {
-            Debug.LogError("PhotonView is not attached to the object.");
-        }
+        PhotonNetwork.AutomaticallySyncScene = true;
+        CheckPlayersAndStartGame();
     }
 
-    private void Update()
+    public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        // Проверяем подключение к комнате и наличие PhotonView
-        if (PhotonNetwork.CurrentRoom != null && photonView != null)
-        {
-            if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
-            {
-                RequestSceneChange("Flowers");
-            }
-        }
+        Debug.Log("Player entered room. Current player count: " + PhotonNetwork.CurrentRoom.PlayerCount);
+        CheckPlayersAndStartGame();
     }
 
-    [PunRPC]
-    public void ChangeScene(string sceneName)
+    public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        SceneManager.LoadScene(sceneName);
+        Debug.Log("Player left room. Current player count: " + PhotonNetwork.CurrentRoom.PlayerCount);
+        CheckPlayersAndStartGame();
     }
 
-    public void RequestSceneChange(string sceneName)
+    private void CheckPlayersAndStartGame()
     {
-        if (photonView != null)
+        if (PhotonNetwork.CurrentRoom.PlayerCount >= requiredPlayers)
         {
-            photonView.RPC("ChangeScene", RpcTarget.All, sceneName);
-        }
-        else
-        {
-            Debug.LogError("PhotonView is null in RequestSceneChange.");
+            Debug.Log("Required players reached. Starting game...");
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+            PhotonNetwork.CurrentRoom.IsVisible = false;
+            PhotonNetwork.LoadLevel("Flowers");
         }
     }
 }
