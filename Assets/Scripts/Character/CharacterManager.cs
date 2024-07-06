@@ -1,10 +1,12 @@
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterManager : MonoBehaviourPun
 {
     private PhotonView _photonView;
     private CameraFollow _camera;
+    public Text _nickName;
     void Start()
     {
         _photonView = GetComponent<PhotonView>();
@@ -14,5 +16,7 @@ public class CharacterManager : MonoBehaviourPun
             _camera = Camera.main.GetComponent<CameraFollow>();
             _camera.Initialize(gameObject.transform);
         }
+
+        _nickName.text = _photonView.Owner.NickName;
     }
 }
