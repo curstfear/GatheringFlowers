@@ -67,4 +67,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             PhotonNetwork.LoadLevel("Flowers");
         }
     }
+
+    public void PrematureStart() // преждевременный старт
+    {
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+        PhotonNetwork.CurrentRoom.IsVisible = false;
+        PhotonNetwork.LoadLevel("Flowers");
+    }
 }

@@ -7,6 +7,7 @@ public class CharacterController : MonoBehaviour
 {
     [SerializeField] private float _characterSpeed;
     PhotonView _photonView;
+
     void Start()
     {
         _photonView = GetComponent<PhotonView>();
