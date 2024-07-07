@@ -23,16 +23,26 @@ public class CharacterHealth : MonoBehaviourPunCallbacks
 
     private void TakeDamage()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (!photonView.IsMine) return;
+
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             _characterHealth -= 50;
             UpdateHealthUI();
         }
+        photonView.RPC("SyncHealth", RpcTarget.Others, _characterHealth);
     }
 
     void UpdateHealthUI()
     {
         _healthFill.fillAmount = _characterHealth / _characterMaxHealth;
+    }
+
+    [PunRPC]
+    public void SyncHealth(float syncedHealth)
+    {
+        _characterHealth = syncedHealth;
+        UpdateHealthUI();
     }
 
     public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -45,6 +55,7 @@ public class CharacterHealth : MonoBehaviourPunCallbacks
         if (stream.IsReading)
         {
             _characterHealth = (float)stream.ReceiveNext();
+            UpdateHealthUI();
         }
     }
 }
