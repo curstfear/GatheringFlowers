@@ -16,6 +16,8 @@ public class ObserverController : MonoBehaviour
         if (observerCamera != null)
         {
             observerCamera.enabled = true;
+            observerCamera.transform.SetParent(transform);
+            observerCamera.transform.localPosition = new Vector3(0, 0, -10); // Отодвинуть камеру назад по оси Z
         }
         else
         {
@@ -62,7 +64,7 @@ public class ObserverController : MonoBehaviour
         if (player != null)
         {
             Vector3 targetPosition = player.transform.position;
-            observerCamera.transform.position = Vector3.Lerp(observerCamera.transform.position, targetPosition, followSpeed * Time.deltaTime);
+            observerCamera.transform.position = Vector3.Lerp(observerCamera.transform.position, targetPosition + new Vector3(0, 0, -10), followSpeed * Time.deltaTime);
         }
     }
 }

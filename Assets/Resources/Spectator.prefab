@@ -77,8 +77,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 951515161, guid: 16a0a4f8a674e1a4ca35bb55703e82c7, type: 3}
-  m_Color: {r: 0.3254717, g: 0.764698, b: 1, a: 0.3529412}
+  m_Sprite: {fileID: 21300000, guid: be279a941d3e87340bbb2acfccbc39ca, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -100,9 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98665a64a4d9f8e4b8f60c0fa3793caa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spectatorCamera: {fileID: 0}
-  moveSpeed: 10
-  lookSpeed: 2
+  followSpeed: 5
 --- !u!50 &6399112092780673278
 Rigidbody2D:
   serializedVersion: 4
@@ -166,7 +164,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.1666666, y: 1.3333334}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -193,8 +191,7 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents:
-  - {fileID: 0}
+  ObservedComponents: []
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
