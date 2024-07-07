@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _nickName: {fileID: 4461686848940093542}
-  _HealthBackground: {fileID: 6283981845564216567}
+  _HealthFill: {fileID: 1362729247942424846}
 --- !u!114 &6171240912309867031
 MonoBehaviour:
   m_ObjectHideFlags: 0
