@@ -227,6 +227,7 @@ MonoBehaviour:
   _animator: {fileID: 1342657676780526661}
   _attackPoint: {fileID: 4154853726772743183}
   _meleeAttackRange: 0.7
+  _attackCooldown: 1
   _characterDamage: 10
   _playerLayer:
     serializedVersion: 2
