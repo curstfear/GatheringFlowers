@@ -15,10 +15,12 @@ GameObject:
   - component: {fileID: -6669167529235248048}
   - component: {fileID: 8854148140666499679}
   - component: {fileID: 5686866143459702811}
+  - component: {fileID: 7788909241981631569}
   - component: {fileID: 6171240912309867031}
   - component: {fileID: 8461255487516889739}
   - component: {fileID: 7210454473931022044}
-  m_Layer: 0
+  - component: {fileID: 1342657676780526661}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -39,6 +41,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 979270092911598876}
+  - {fileID: 4154853726772743183}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &845770705909381463
@@ -82,7 +85,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 951515161, guid: 16a0a4f8a674e1a4ca35bb55703e82c7, type: 3}
+  m_Sprite: {fileID: -2138904642, guid: 8313de4a804d56c4cbb73a991bee2e77, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -156,7 +159,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.1666666, y: 1.3333334}
+    oldSize: {x: 1.8333334, y: 1.5}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -208,6 +211,24 @@ MonoBehaviour:
   _characterMaxHealth: 100
   _characterHealth: 0
   SpectatorPrefab: {fileID: 887403670699841342, guid: f47695cc7c117294f89b8de20fe192f9, type: 3}
+--- !u!114 &7788909241981631569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887403670699841342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9908873d6253784f90d521849965b07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackPoint: {fileID: 4154853726772743183}
+  _meleeAttackRange: 0.7
+  _characterDamage: 10
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &6171240912309867031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,6 +302,27 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 0
   m_TeleportEnabled: 1
   m_TeleportIfDistanceGreaterThan: 3
+--- !u!95 &1342657676780526661
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887403670699841342}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2a25d108213fbb14092336cbaaee073b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1756977572867929003
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,7 +334,7 @@ GameObject:
   - component: {fileID: 8621848005837330679}
   - component: {fileID: 2881301586693676153}
   - component: {fileID: 4461686848940093542}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: NickNameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,7 +413,7 @@ GameObject:
   - component: {fileID: 1267453576593965999}
   - component: {fileID: 2604373883904309180}
   - component: {fileID: 1362729247942424846}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HealthFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -435,6 +477,37 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &6164804752397515788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4154853726772743183}
+  m_Layer: 6
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4154853726772743183
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6164804752397515788}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1212114331611879554}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6504748576193251056
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,7 +519,7 @@ GameObject:
   - component: {fileID: 4831153867820845096}
   - component: {fileID: 6059137316059275453}
   - component: {fileID: 6283981845564216567}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HealthBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -522,7 +595,7 @@ GameObject:
   - component: {fileID: 5510883666406104863}
   - component: {fileID: 1371042199856940252}
   - component: {fileID: 5067307273055196527}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -622,7 +695,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4033671157565910239}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}

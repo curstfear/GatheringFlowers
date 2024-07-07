@@ -14,28 +14,23 @@ public class CharacterHealth : MonoBehaviourPunCallbacks
     private void Start()
     {
         _characterHealth = _characterMaxHealth;
-        
+
     }
-
-    private void Update()
+    [PunRPC]
+    private void TakeDamage(int Damage)
     {
-        TakeDamage();
-    }
-
-    private void TakeDamage()
-    {
-        if (!photonView.IsMine) return;
-
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (photonView.IsMine)
         {
-            _characterHealth -= 50;
-            if(_characterHealth <= 0)
-            {
-                _characterHealth = 0;
-                Die();
-            }
-            UpdateHealthUI();
+            _characterHealth -= Damage;
+            Debug.Log("Player took " + Damage + " damage. Current Health: " + _characterHealth);
         }
+
+        if (_characterHealth <= 0)
+        {
+            _characterHealth = 0;
+            Die();
+        }
+        UpdateHealthUI();
         photonView.RPC("SyncHealth", RpcTarget.Others, _characterHealth);
     }
 
@@ -66,11 +61,11 @@ public class CharacterHealth : MonoBehaviourPunCallbacks
     }
     void Die()
     {
-        // Удаление игрока из сцены
-        PhotonNetwork.Destroy(gameObject);
         // Создание наблюдателя
         GameObject Spectator = PhotonNetwork.Instantiate(SpectatorPrefab.name, transform.position, Quaternion.identity);
         Spectator.GetComponent<ObserverController>().InitializeAsObserver();
+        // Удаление игрока из сцены
+        PhotonNetwork.Destroy(gameObject);
 
     }
 }
