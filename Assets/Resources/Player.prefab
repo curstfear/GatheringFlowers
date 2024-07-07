@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1212114331611879554}
-  - component: {fileID: 845770705909381463}
+  - component: {fileID: 3034656197134670771}
+  - component: {fileID: 5291018231381246352}
   - component: {fileID: 6399112092780673278}
   - component: {fileID: -3238718399046666152}
   - component: {fileID: -6669167529235248048}
@@ -19,7 +20,6 @@ GameObject:
   - component: {fileID: 6171240912309867031}
   - component: {fileID: 8461255487516889739}
   - component: {fileID: 7210454473931022044}
-  - component: {fileID: 1342657676780526661}
   - component: {fileID: 525423582880868539}
   m_Layer: 6
   m_Name: Player
@@ -45,7 +45,7 @@ Transform:
   - {fileID: 4154853726772743183}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &845770705909381463
+--- !u!212 &3034656197134670771
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,18 +85,39 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 2092695333, guid: 16a0a4f8a674e1a4ca35bb55703e82c7, type: 3}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 951515161, guid: 16a0a4f8a674e1a4ca35bb55703e82c7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 1.1666666, y: 1.3333334}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &5291018231381246352
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887403670699841342}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2a25d108213fbb14092336cbaaee073b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!50 &6399112092780673278
 Rigidbody2D:
   serializedVersion: 4
@@ -160,8 +181,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.8333333, y: 1.3333334}
-    newSize: {x: 1, y: 2}
+    oldSize: {x: 1.1666666, y: 1.3333334}
+    newSize: {x: 1.1666666, y: 1.3333334}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -182,7 +203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterSpeed: 6
-  _animator: {fileID: 1342657676780526661}
+  _animator: {fileID: 0}
 --- !u!114 &8854148140666499679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,7 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9908873d6253784f90d521849965b07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 1342657676780526661}
+  _animator: {fileID: 5291018231381246352}
   _attackPoint: {fileID: 4154853726772743183}
   _meleeAttackRange: 0.7
   _attackCooldown: 1
@@ -287,7 +308,7 @@ MonoBehaviour:
     InterpolateRotateTowardsSpeed: 180
     InterpolateLerpSpeed: 5
   m_ScaleModel:
-    SynchronizeEnabled: 0
+    SynchronizeEnabled: 1
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
@@ -307,27 +328,6 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 0
   m_TeleportEnabled: 1
   m_TeleportIfDistanceGreaterThan: 3
---- !u!95 &1342657676780526661
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 887403670699841342}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2a25d108213fbb14092336cbaaee073b, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &525423582880868539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,21 +343,9 @@ MonoBehaviour:
   ShowLayerWeightsInspector: 1
   ShowParameterInspector: 1
   m_SynchronizeParameters:
-  - Type: 9
-    SynchronizeType: 1
-    Name: Attack
-  - Type: 4
+  - Type: 3
     SynchronizeType: 0
-    Name: isMovingRight
-  - Type: 4
-    SynchronizeType: 0
-    Name: isMovingLeft
-  - Type: 4
-    SynchronizeType: 0
-    Name: isMovingUp
-  - Type: 4
-    SynchronizeType: 0
-    Name: isMovingDown
+    Name: state
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -395,7 +383,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.1}
+  m_AnchoredPosition: {x: 0, y: 0.4}
   m_SizeDelta: {x: 4.6322, y: 0.6169}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2881301586693676153
@@ -474,7 +462,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.2518, y: 0.7998}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 2.4308, y: 0.2792}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2604373883904309180
@@ -539,7 +527,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6164804752397515788}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -580,7 +568,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.25, y: 0.8}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 2.5, y: 0.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6059137316059275453
@@ -658,8 +646,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1.6094}
-  m_SizeDelta: {x: 3.6872, y: 0.9849}
+  m_AnchoredPosition: {x: 0.0046, y: 1.308}
+  m_SizeDelta: {x: 3.6965, y: 1.5877}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &5510883666406104863
 Canvas:
@@ -749,7 +737,7 @@ Transform:
   m_GameObject: {fileID: 7609638336947643774}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.24751617, y: -1.4212537, z: -0.01862784}
+  m_LocalPosition: {x: 0, y: -0.2, z: -0.01862784}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

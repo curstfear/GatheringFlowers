@@ -7,55 +7,67 @@ public class CharacterController : MonoBehaviour
 {
     [SerializeField] private float _characterSpeed;
     [SerializeField] private Animator _animator;
+    private Vector2 _lastPosition;
+    private bool _isMoving;
     PhotonView _photonView;
 
-    void Start()
+    private States State
+    {
+        get { return (States)_animator.GetInteger("state"); }
+
+        set { _animator.SetInteger("state", (int)value); }
+    }
+
+    void Awake()
     {
         _photonView = GetComponent<PhotonView>();
+        _animator = GetComponent<Animator>();
+        _lastPosition = transform.position;
     }
 
     void Update()
     {
-        Movement();
+        if (_photonView.IsMine)
+        {
+            Movement();
+            CheckMovementState();
+        }
     }
 
     void Movement()
     {
-        if (_photonView.IsMine)
-        {
-            Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-            Vector2 moveAmount = moveInput.normalized * _characterSpeed * Time.deltaTime;
-            transform.position += (Vector3)moveAmount;
-            UpdateCharacterDirection(moveInput);
-        }
-    }
-    void UpdateCharacterDirection(Vector2 moveInput)
-    {
-        // Сброс параметров анимации
-        _animator.SetBool("isMovingUp", false);
-        _animator.SetBool("isMovingDown", false);
-        _animator.SetBool("isMovingRight", false);
-        _animator.SetBool("isMovingLeft", false);
+        Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        Vector2 moveAmount = moveInput.normalized * _characterSpeed * Time.deltaTime;
 
-        if (moveInput.x > 0)
+        if (moveAmount.magnitude > 0)
         {
-            // Движение вправо
-            transform.localScale = new Vector3(1, 1, 1); // Оригинальный масштаб
-            _animator.SetBool("isMovingRight", true);
+            transform.position += (Vector3)moveAmount;
+            State = States.run;
         }
-        else if (moveInput.x < 0)
+        else
         {
-            // Движение влево
-            transform.localScale = new Vector3(-1, 1, 1); // Отражение по горизонтали
-            _animator.SetBool("isMovingLeft", true);
-        }
-        else if (moveInput.y > 0)
-        {
-            _animator.SetBool("isMovingUp", true);
-        }
-        else if (moveInput.y < 0)
-        {
-            _animator.SetBool("isMovingDown", true);
+            State = States.idle;
         }
     }
+
+    void CheckMovementState()
+    {
+        if (Vector2.Distance(transform.position, _lastPosition) > 0.01f)
+        {
+            _isMoving = true;
+        }
+        else
+        {
+            _isMoving = false;
+        }
+
+        _lastPosition = transform.position;
+    }
+}
+
+public enum States
+{
+    idle,
+    run,
+    attack
 }
