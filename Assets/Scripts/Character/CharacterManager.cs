@@ -7,6 +7,7 @@ public class CharacterManager : MonoBehaviourPun
     private PhotonView _photonView;
     private CameraFollow _camera;
     public Text _nickName;
+    [SerializeField] private Image _HealthBackground;
     void Start()
     {
         
@@ -17,6 +18,7 @@ public class CharacterManager : MonoBehaviourPun
             _camera = Camera.main.GetComponent<CameraFollow>();
             _camera.Initialize(gameObject.transform);
             _nickName.color = Color.white;
+            _HealthBackground.color = Color.green;
         }
 
         _nickName.text = _photonView.Owner.NickName;
