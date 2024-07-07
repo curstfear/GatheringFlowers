@@ -17,6 +17,7 @@ public class CharacterManager : MonoBehaviourPun
         {
             _camera = Camera.main.GetComponent<CameraFollow>();
             _camera.Initialize(gameObject.transform);
+          
             _HealthFill.color = Color.green;
         }
 
