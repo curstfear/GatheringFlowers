@@ -13,6 +13,26 @@ public class CharacterHealth : MonoBehaviourPunCallbacks
     private void Start()
     {
         _characterHealth = _characterMaxHealth;
+        
+    }
+
+    private void Update()
+    {
+        TakeDamage();
+    }
+
+    private void TakeDamage()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            _characterHealth -= 50;
+            UpdateHealthUI();
+        }
+    }
+
+    void UpdateHealthUI()
+    {
+        _healthFill.fillAmount = _characterHealth / _characterMaxHealth;
     }
 
     public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
