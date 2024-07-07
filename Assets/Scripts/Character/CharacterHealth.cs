@@ -71,5 +71,6 @@ public class CharacterHealth : MonoBehaviourPunCallbacks
 
         // Создание наблюдателя
         GameObject Spectator = PhotonNetwork.Instantiate(SpectatorPrefab.name, transform.position, Quaternion.identity);
+        Spectator.GetComponent<ObserverController>().InitializeAsObserver();
     }
 }
