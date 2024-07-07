@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 7210454473931022044}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -207,6 +207,7 @@ MonoBehaviour:
   _healthFill: {fileID: 1362729247942424846}
   _characterMaxHealth: 100
   _characterHealth: 0
+  SpectatorPrefab: {fileID: 887403670699841342, guid: f47695cc7c117294f89b8de20fe192f9, type: 3}
 --- !u!114 &6171240912309867031
 MonoBehaviour:
   m_ObjectHideFlags: 0

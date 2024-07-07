@@ -9,6 +9,7 @@ public class CharacterHealth : MonoBehaviourPunCallbacks
     [SerializeField] private Image _healthFill;
     [SerializeField] private float _characterMaxHealth;
     [SerializeField] private float _characterHealth;
+    public GameObject SpectatorPrefab;
 
     private void Start()
     {
@@ -28,6 +29,11 @@ public class CharacterHealth : MonoBehaviourPunCallbacks
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             _characterHealth -= 50;
+            if(_characterHealth <= 0)
+            {
+                _characterHealth = 0;
+                Die();
+            }
             UpdateHealthUI();
         }
         photonView.RPC("SyncHealth", RpcTarget.Others, _characterHealth);
@@ -57,5 +63,13 @@ public class CharacterHealth : MonoBehaviourPunCallbacks
             _characterHealth = (float)stream.ReceiveNext();
             UpdateHealthUI();
         }
+    }
+    void Die()
+    {
+        // Удаление игрока из сцены
+        PhotonNetwork.Destroy(gameObject);
+
+        // Создание наблюдателя
+        GameObject Spectator = PhotonNetwork.Instantiate(SpectatorPrefab.name, transform.position, Quaternion.identity);
     }
 }
