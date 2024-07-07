@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 8461255487516889739}
   - component: {fileID: 7210454473931022044}
   - component: {fileID: 1342657676780526661}
+  - component: {fileID: 525423582880868539}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -85,7 +86,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -2138904642, guid: 8313de4a804d56c4cbb73a991bee2e77, type: 3}
+  m_Sprite: {fileID: 2092695333, guid: 16a0a4f8a674e1a4ca35bb55703e82c7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -159,7 +160,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.8333334, y: 1.5}
+    oldSize: {x: 0.8333333, y: 1.3333334}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -223,6 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9908873d6253784f90d521849965b07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 1342657676780526661}
   _attackPoint: {fileID: 4154853726772743183}
   _meleeAttackRange: 0.7
   _characterDamage: 10
@@ -250,6 +252,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 8461255487516889739}
   - {fileID: 7210454473931022044}
+  - {fileID: 525423582880868539}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -323,6 +326,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &525423582880868539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887403670699841342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 9
+    SynchronizeType: 1
+    Name: Attack
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1 &1756977572867929003
 GameObject:
   m_ObjectHideFlags: 0

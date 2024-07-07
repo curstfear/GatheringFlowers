@@ -61,11 +61,11 @@ public class CharacterHealth : MonoBehaviourPunCallbacks
     }
     void Die()
     {
+        // Удаление игрока из сцены
+        PhotonNetwork.Destroy(gameObject);
         // Создание наблюдателя
         GameObject Spectator = PhotonNetwork.Instantiate(SpectatorPrefab.name, transform.position, Quaternion.identity);
         Spectator.GetComponent<ObserverController>().InitializeAsObserver();
-        // Удаление игрока из сцены
-        PhotonNetwork.Destroy(gameObject);
 
     }
 }
