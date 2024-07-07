@@ -7,7 +7,7 @@ using TMPro;
 
 public class MenuManager : MonoBehaviourPunCallbacks
 {
-    public TMP_InputField _nickNameInputField;
+    public InputField _nickNameInputField;
 
     public void Start()
     {

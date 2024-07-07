@@ -8,7 +8,7 @@ using TMPro;
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private int requiredPlayers = 3;
-    public TMP_Text playerInRoomCount;
+    public Text playerInRoomCount;
 
     void Start()
     {

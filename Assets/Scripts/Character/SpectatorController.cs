@@ -34,6 +34,11 @@ public class ObserverController : MonoBehaviour
 
     void Update()
     {
+        TrackingPLayer();
+    }
+
+    void TrackingPLayer()
+    {
         if (observerCamera != null && observerCamera.enabled)
         {
             // Переключение между игроками
@@ -46,8 +51,12 @@ public class ObserverController : MonoBehaviour
                 SwitchPlayer(1);
             }
 
-            // Следование за текущим игроком
-            FollowPlayer(players[currentPlayerIndex]);
+            // Проверяем, что текущий индекс находится в допустимых пределах массива players
+            if (currentPlayerIndex >= 0 && currentPlayerIndex < players.Length)
+            {
+                // Следование за текущим игроком
+                FollowPlayer(players[currentPlayerIndex]);
+            }
         }
     }
 
