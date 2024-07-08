@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class DamageFlowers : MonoBehaviour
 {
-    int damageAmount = 5; //сколько дается урона бонусом при подборе
+    [SerializeField] int damageAmount = 5; //сколько дается урона бонусом при подборе
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Player"))
@@ -14,7 +14,7 @@ public class DamageFlowers : MonoBehaviour
             PhotonView playerPhotonView = collision.GetComponent<PhotonView>();
             if (playerPhotonView != null)
             {
-                // Вызываем RPC-метод на игроке для нанесения урона
+                // Вызываем RPC-метод на игроке для выдачи урона бонусом
                 playerPhotonView.RPC("GiveDamage", RpcTarget.All, damageAmount);
 
                 // Уничтожаем цветок после взаимодействия

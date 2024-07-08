@@ -7,7 +7,7 @@ using Photon.Pun;
 public class CharacterHealth : MonoBehaviourPunCallbacks
 {
     [SerializeField] private Image _healthFill;
-    [SerializeField] private float _characterMaxHealth;
+    public float _characterMaxHealth;
     [SerializeField] private float _characterHealth;
     public GameObject SpectatorPrefab;
 

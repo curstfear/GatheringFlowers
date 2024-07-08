@@ -7,7 +7,8 @@ using UnityEngine;
 public class SpawnFlowers : MonoBehaviourPun
 {
     public float minX, maxX, minY, maxY;
-    [SerializeField] private GameObject flowerPrefab; // Prefab для цветка
+    [SerializeField]
+    private GameObject[] flowersPrefab; // Prefab для цветка
 
     private PhotonView _photonView;
     [SerializeField] private float _spawnDelay;
@@ -30,7 +31,7 @@ public class SpawnFlowers : MonoBehaviourPun
         if (_spawnDelay <= 0)
         {
             Vector2 randomPosition = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
-            GameObject flowerInstance = PhotonNetwork.Instantiate(flowerPrefab.name, randomPosition, Quaternion.identity);
+            GameObject flowerInstance = PhotonNetwork.Instantiate(flowersPrefab[Random.Range(0, 3)].name, randomPosition, Quaternion.identity);
             StartCoroutine(DestroyFlowerAfterDelay(flowerInstance));
             _spawnDelay = _spawnMaxDelay;
         }

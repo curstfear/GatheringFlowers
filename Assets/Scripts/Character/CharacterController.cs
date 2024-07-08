@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class CharacterController : MonoBehaviourPun, IPunObservable
 {
-    [SerializeField] private float _characterSpeed;
+    public float _characterSpeed;
     [SerializeField] private Animator _animator;
     private SpriteRenderer _spriteRenderer;
     private Vector2 _lastPosition;

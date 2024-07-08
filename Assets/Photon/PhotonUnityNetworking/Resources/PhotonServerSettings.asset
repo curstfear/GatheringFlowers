@@ -47,6 +47,8 @@ MonoBehaviour:
   - SyncIdleState
   - SyncAnimationState
   - GiveDamage
+  - GiveMoveSpeed
+  - GiveMaxHealth
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
