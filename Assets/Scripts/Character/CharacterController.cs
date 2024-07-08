@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class CharacterController : MonoBehaviour
+public class CharacterController : MonoBehaviourPun, IPunObservable
 {
     [SerializeField] private float _characterSpeed;
     [SerializeField] private Animator _animator;
@@ -17,32 +17,27 @@ public class CharacterController : MonoBehaviour
     public int _characterDamage = 10;
     public LayerMask _playerLayer;
     private bool _isMoving;
-    PhotonView _photonView;
 
     private States State
     {
         get { return (States)_animator.GetInteger("state"); }
-
         set { _animator.SetInteger("state", (int)value); }
     }
 
     void Awake()
     {
-        _photonView = GetComponent<PhotonView>();
-        _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _lastPosition = transform.position;
     }
 
     void Update()
     {
-        if (_photonView.IsMine)
+        if (photonView.IsMine)
         {
             Movement();
             CheckMovementState();
-            if (Input.GetMouseButton(0) && _canAttack)
+            if (Input.GetMouseButtonDown(0) && _canAttack) // Changed to GetMouseButtonDown for a single click
             {
-                Debug.Log("Attack initiated");
                 Attack();
             }
         }
@@ -50,40 +45,53 @@ public class CharacterController : MonoBehaviour
 
     void Attack()
     {
-        Debug.Log("Setting state to attack");
-        State = States.attack;
         _isAttacking = true;
         _canAttack = false;
         OnAttack();
-        StartCoroutine(AttackAnimation());
+        photonView.RPC("PlayAttackAnimation", RpcTarget.All);
         StartCoroutine(AttackCooldown());
     }
+
+    [PunRPC]
+    void PlayAttackAnimation()
+    {
+        State = States.attack;
+        StartCoroutine(AttackAnimation());
+    }
+
     public void OnAttack()
     {
-        Debug.Log("OnAttack called");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(_attackPoint.position, _meleeAttackRange, _playerLayer);
         foreach (Collider2D enemy in hitEnemies)
         {
             PhotonView enemyPhotonView = enemy.GetComponent<PhotonView>();
-            if (enemyPhotonView != null && enemyPhotonView != _photonView)
+            if (enemyPhotonView != null && enemyPhotonView != photonView)
             {
                 enemyPhotonView.RPC("TakeDamage", RpcTarget.All, _characterDamage);
             }
         }
     }
+
     IEnumerator AttackCooldown()
     {
         yield return new WaitForSeconds(_attackCooldown);
-        Debug.Log("Attack cooldown ended");
         _canAttack = true;
     }
 
     IEnumerator AttackAnimation()
     {
-        // Продолжительность атаки может варьироваться, используйте реальную продолжительность вашей анимации
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.4f); // Duration of the attack animation
         _isAttacking = false;
-        Debug.Log("Attack animation ended");
+        if (!_isMoving) // Check if the character is moving or not
+        {
+            State = States.idle;
+            photonView.RPC("SyncIdleState", RpcTarget.All);
+        }
+    }
+
+    [PunRPC]
+    void SyncIdleState()
+    {
         State = States.idle;
     }
 
@@ -95,23 +103,38 @@ public class CharacterController : MonoBehaviour
         if (moveAmount.magnitude > 0 && !_isAttacking)
         {
             transform.position += (Vector3)moveAmount;
-            State = States.run;
-
-            if(moveInput.x < 0)
+            if (moveInput.x < 0)
+            {
                 _spriteRenderer.flipX = true;
-
-            else 
+                _attackPoint.transform.localPosition = new Vector3(-1, 0, 0);
+            }
+            else
+            {
                 _spriteRenderer.flipX = false;
+                _attackPoint.transform.localPosition = new Vector3(1, 0, 0);
+            }
 
-            if(moveInput.y > 0)
+            if (moveInput.y > 0)
+            {
+                _attackPoint.transform.localPosition = new Vector3(0, 1, 0);
                 State = States.runTop;
+                if(_isAttacking) State = States.attackTop;
 
-            else if(moveInput.y < 0)
+            }
+            else if (moveInput.y < 0)
+            {
+                _attackPoint.transform.localPosition = new Vector3(0, -1, 0);
                 State = States.runDown;
-        }
+                if (_isAttacking) State = States.attackDown;
+            }
 
-        else if(moveAmount.magnitude == 0 && !_isAttacking)
+            else
+                State = States.run;
+        }
+        else if (moveAmount.magnitude == 0 && !_isAttacking)
+        {
             State = States.idle;
+        }
     }
 
     void CheckMovementState()
@@ -127,6 +150,23 @@ public class CharacterController : MonoBehaviour
 
         _lastPosition = transform.position;
     }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(State);
+        }
+        else
+        {
+            State = (States)stream.ReceiveNext();
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(_attackPoint.position, _meleeAttackRange);
+    }
 }
 
 public enum States
@@ -135,5 +175,7 @@ public enum States
     run,
     runTop,
     runDown,
-    attack
+    attack,
+    attackTop,
+    attackDown
 }

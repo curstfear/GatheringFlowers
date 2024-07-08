@@ -42,6 +42,10 @@ MonoBehaviour:
   - ChangeScene
   - SyncHealth
   - TakeDamage
+  - PlayAttackAnimation
+  - SyncAttackState
+  - SyncIdleState
+  - SyncAnimationState
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

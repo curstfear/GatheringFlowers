@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: -6669167529235248048}
   - component: {fileID: 8854148140666499679}
   - component: {fileID: 5686866143459702811}
-  - component: {fileID: 7788909241981631569}
   - component: {fileID: 6171240912309867031}
   - component: {fileID: 8461255487516889739}
   - component: {fileID: 7210454473931022044}
@@ -210,7 +209,7 @@ MonoBehaviour:
   _characterDamage: 10
   _playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!114 &8854148140666499679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,26 +240,6 @@ MonoBehaviour:
   _characterMaxHealth: 100
   _characterHealth: 0
   SpectatorPrefab: {fileID: 887403670699841342, guid: f47695cc7c117294f89b8de20fe192f9, type: 3}
---- !u!114 &7788909241981631569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 887403670699841342}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9908873d6253784f90d521849965b07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 5291018231381246352}
-  _attackPoint: {fileID: 4154853726772743183}
-  _meleeAttackRange: 0.7
-  _attackCooldown: 1
-  _characterDamage: 10
-  _playerLayer:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!114 &6171240912309867031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,6 +259,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
+  - {fileID: -6669167529235248048}
   - {fileID: 8461255487516889739}
   - {fileID: 7210454473931022044}
   - {fileID: 525423582880868539}
@@ -535,7 +515,7 @@ Transform:
   m_GameObject: {fileID: 6164804752397515788}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 0.958, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
