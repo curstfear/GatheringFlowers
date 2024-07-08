@@ -6,52 +6,75 @@ using Photon.Pun;
 public class CharacterCombat : MonoBehaviourPun
 {
     [SerializeField] private Animator _animator;
-    private bool isAttacking = false;
     [SerializeField] private Transform _attackPoint;
     [SerializeField] private float _meleeAttackRange = 0.5f;
     private bool _canAttack = true;
+    private bool _isAttacking = false;
     [SerializeField] private float _attackCooldown = 1f;
     public int _characterDamage = 10;
     public LayerMask _playerLayer;
+
+    private States State
+    {
+        get { return (States)_animator.GetInteger("state"); }
+        set { _animator.SetInteger("state", (int)value); }
+    }
+
+    private void Awake()
+    {
+        _canAttack = true;
+    }
 
     private void Update()
     {
         if (photonView.IsMine && Input.GetMouseButton(0) && _canAttack)
         {
+            Debug.Log("Attack initiated");
             Attack();
         }
     }
 
     void Attack()
     {
-        
+        Debug.Log("Setting state to attack");
+        State = States.attack;
+        _isAttacking = true;
         _canAttack = false;
-        // Отыграть анимацию атаки (если требуется)
-        _animator.SetTrigger("Attack"); // Установить флаг, что анимация атаки запущена
+        OnAttack();
+        StartCoroutine(AttackAnimation());
+        StartCoroutine(AttackCooldown());
+    }
 
+    public void OnAttack()
+    {
+        Debug.Log("OnAttack called");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(_attackPoint.position, _meleeAttackRange, _playerLayer);
-
         foreach (Collider2D enemy in hitEnemies)
         {
-            // Получаем PhotonView объекта, на котором сработал триггер
             PhotonView enemyPhotonView = enemy.GetComponent<PhotonView>();
-
-            // Проверяем, что объект имеет PhotonView и не принадлежит текущему игроку
             if (enemyPhotonView != null && enemyPhotonView != photonView)
             {
-                // Наносим урон только другим игрокам
                 enemyPhotonView.RPC("TakeDamage", RpcTarget.All, _characterDamage);
-                isAttacking = false; // Здесь 10 - пример количества урона
             }
         }
-        StartCoroutine(AttackCooldown());
     }
 
     IEnumerator AttackCooldown()
     {
         yield return new WaitForSeconds(_attackCooldown);
+        Debug.Log("Attack cooldown ended");
         _canAttack = true;
     }
+
+    IEnumerator AttackAnimation()
+    {
+        // Продолжительность атаки может варьироваться, используйте реальную продолжительность вашей анимации
+        yield return new WaitForSeconds(0.4f);
+        _isAttacking = false;
+        Debug.Log("Attack animation ended");
+        State = States.idle;
+    }
+
 
     void OnDrawGizmosSelected()
     {

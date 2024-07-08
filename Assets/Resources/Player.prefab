@@ -203,7 +203,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterSpeed: 6
-  _animator: {fileID: 0}
+  _animator: {fileID: 5291018231381246352}
+  _attackPoint: {fileID: 4154853726772743183}
+  _meleeAttackRange: 0.5
+  _attackCooldown: 1
+  _characterDamage: 10
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &8854148140666499679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,7 +248,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 887403670699841342}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9908873d6253784f90d521849965b07, type: 3}
   m_Name: 
