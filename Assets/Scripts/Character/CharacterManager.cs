@@ -8,9 +8,10 @@ public class CharacterManager : MonoBehaviourPun
     private CameraFollow _camera;
     public Text _nickName;
     [SerializeField] private Image _HealthFill;
+    CharacterController _characterController;
     void Start()
     {
-        
+        _characterController = GetComponent<CharacterController>();
         _photonView = GetComponent<PhotonView>();
         DontDestroyOnLoad(gameObject);
         if (_photonView.IsMine)
@@ -24,4 +25,11 @@ public class CharacterManager : MonoBehaviourPun
         _nickName.text = _photonView.Owner.NickName;
         _nickName.text = _nickName.text.ToUpper();
     }
+    [PunRPC]
+    public void GiveDamage(int damage)//добавление урона игроку при подборе цветов
+    {
+        _characterController._characterDamage += damage;
+        Debug.Log(_characterController._characterDamage);
+    } 
+
 }

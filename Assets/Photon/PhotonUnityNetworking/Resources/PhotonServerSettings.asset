@@ -46,6 +46,7 @@ MonoBehaviour:
   - SyncAttackState
   - SyncIdleState
   - SyncAnimationState
+  - GiveDamage
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
